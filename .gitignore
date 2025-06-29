@@ -1,0 +1,14 @@
+# Object files
+*.o
+
+# Executables (including those without extension)
+*
+!*.cpp
+!*.h
+!*.hpp
+!*.c
+!CMakeLists.txt
+!*.md
+!*.txt
+!*.gitignore
+
