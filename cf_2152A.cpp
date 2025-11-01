@@ -1,18 +1,13 @@
-#include <algorithm>
 #include <bits/stdc++.h>
-#include <vector>
 
 using namespace std;
-
-bool comp(int a, int b) { return a > b; }
 
 int main() {
   int t;
   cin >> t;
   while (t--) {
     int n;
-    double c;
-    cin >> n >> c;
+    cin >> n;
 
     vector<int> a;
 
@@ -22,19 +17,15 @@ int main() {
       a.push_back(e);
     }
 
-    sort(a.begin(), a.end(), comp);
+    sort(a.begin(), a.end(), greater<int>());
 
     int res = 0;
-
     for (int i = 0; i < n; i++) {
-      if (a[i] <= c) {
-        a[i] = 0;
-        c /= 2;
-      } else {
+      res = a[i - 1] - a[i];
+      if (a[i - 1] != a[i]) {
         res++;
       }
     }
-
     cout << res << "\n";
   }
 }

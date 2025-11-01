@@ -1,37 +1,36 @@
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-bool comp(int a, int b) { return a > b; }
-
 int main() {
   int t;
   cin >> t;
+
   while (t--) {
     int n;
-    double c;
-    cin >> n >> c;
+    cin >> n;
 
     vector<int> a;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
       int e;
       cin >> e;
+
       a.push_back(e);
     }
 
-    sort(a.begin(), a.end(), comp);
+    sort(a.begin(), a.end());
 
     int res = 0;
 
-    for (int i = 0; i < n; i++) {
-      if (a[i] <= c) {
-        a[i] = 0;
-        c /= 2;
-      } else {
+    for (auto e : a) {
+      if (res == e) {
         res++;
+      } else if (res < e) {
+        break;
       }
     }
 
