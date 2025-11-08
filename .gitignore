@@ -3,6 +3,7 @@
 
 # Executables (including those without extension)
 *
+!*aoi
 !*.cpp
 !*.h
 !*.hpp
