@@ -4,6 +4,7 @@
 # Executables (including those without extension)
 *
 !*aoi
+!*munze
 !*.cpp
 !*.h
 !*.hpp
