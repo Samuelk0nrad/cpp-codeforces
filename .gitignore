@@ -3,6 +3,8 @@
 
 # Executables (including those without extension)
 *
+!*contests
+!*cf_1064
 !*aoi
 !*munze
 !*.cpp

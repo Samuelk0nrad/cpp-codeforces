@@ -1,7 +1,5 @@
-// #include "munzen.h"
-#include <algorithm>
+#include "munzen.h"
 #include <bits/stdc++.h>
-#include <bitset>
 #include <vector>
 
 using namespace std;
@@ -58,7 +56,7 @@ vector<domino> d_map(vector<int> &w) {
 }
 
 bool l_check_right(domino *start, domino *end) {
-  cout << " start right d: " << start->right_d << "\n";
+  // cout << " start right d: " << start->right_d << "\n";
   if (start->right_d == nullptr) {
     return start == end;
   }
@@ -66,10 +64,10 @@ bool l_check_right(domino *start, domino *end) {
 }
 
 bool l_check_left(domino *start, domino *end) {
-  cout << " start left d: " << start->left_d << "\n";
+  // cout << " start left d: " << start->left_d << "\n";
   if (start->left_d == nullptr) {
-    cout << " > start: " << start << "\n";
-    cout << " > end: " << end << "\n";
+    // cout << " > start: " << start << "\n";
+    // cout << " > end: " << end << "\n";
     return start == end;
   }
   return l_check_left(start->left_d, end);
@@ -89,26 +87,26 @@ void find(vector<domino> &d, int w, bool u, int count) {
     right = true;
   }
 
-  cout << "\n WERT: " << w << "\n";
+  // cout << "\n WERT: " << w << "\n";
 
   for (int i = 0; i < d.size(); ++i) {
     if (d[i].w_u) {
-      cout << "de wert: " << d[i].w << "\n";
+      // cout << "de wert: " << d[i].w << "\n";
       //        cout << "left d: " << left_d << " de left: " << de.left << "
       //        de left d "
       //             << de.left_d << " c left: " << left << " \n";
       if (left_d == nullptr && (d[i].right == left || !u) &&
           d[i].right_d == nullptr) {
 
-        cout << "check for loop:\n";
-        cout << " left d: " << right_d << "\n";
+        // cout << "check for loop:\n";
+        // cout << " left d: " << right_d << "\n";
         if (right_d != nullptr && count < d.size() &&
             l_check_left(&d[i], right_d)) {
-          cout << "loop detected!! \n";
+          // cout << "loop detected!! \n";
           continue;
         }
 
-        cout << "found left d \n";
+        // cout << "found left d \n";
         left_d = &d[i];
         if (!u) {
           u = !u;
@@ -121,15 +119,15 @@ void find(vector<domino> &d, int w, bool u, int count) {
       } else if (right_d == nullptr && (d[i].left == right || !u) &&
                  d[i].left_d == nullptr) {
 
-        cout << "check for loop:\n";
-        cout << " left d: " << left_d << "\n";
+        // cout << "check for loop:\n";
+        // cout << " left d: " << left_d << "\n";
         if (left_d != nullptr && count < d.size() &&
             l_check_right(&d[i], left_d)) {
-          cout << "loop detected!! \n";
+          // cout << "loop detected!! \n";
           continue;
         }
 
-        cout << "found right d\n";
+        // cout << "found right d\n";
         right_d = &d[i];
         if (!u) {
           u = !u;
@@ -138,13 +136,13 @@ void find(vector<domino> &d, int w, bool u, int count) {
         }
       }
     } else {
-      cout << "de has no final positioning: " << d[i].w << "\n";
+      // cout << "de has no final positioning: " << d[i].w << "\n";
       if (left_d == nullptr && e_left == nullptr) {
         e_left = &d[i];
-        cout << "set e left \n";
+        // cout << "set e left \n";
       } else if (right_d == nullptr && e_right == nullptr) {
         e_right = &d[i];
-        cout << "set e right: " << e_right << " w: " << e_right->w << "\n";
+        // cout << "set e right: " << e_right << " w: " << e_right->w << "\n";
       }
     }
   }
@@ -159,7 +157,7 @@ void find(vector<domino> &d, int w, bool u, int count) {
     if (e_left == nullptr) {
       throw "something went wrong in sort no possible next domino left";
     }
-    cout << "left d is null\n";
+    // cout << "left d is null\n";
     left_d = e_left;
 
     e_left->left = !left;
@@ -170,8 +168,8 @@ void find(vector<domino> &d, int w, bool u, int count) {
     if (e_right == nullptr) {
       throw "something went wrong in sort no possible next domino right";
     }
-    cout << "right d is null e right: " << e_right << " w " << e_right->w
-         << "\n";
+    // cout << "right d is null e right: " << e_right << " w " << e_right->w
+    //     << "\n";
     right_d = e_right;
 
     e_right->right = !right;
@@ -182,8 +180,8 @@ void find(vector<domino> &d, int w, bool u, int count) {
   left_d->right_d = right_d;
   right_d->left_d = left_d;
 
-  cout << " |||: " << left_d->left << " " << left_d->right << " "
-       << left_d->right_d->left << " " << left_d->right_d->right << " \n";
+  // cout << " |||: " << left_d->left << " " << left_d->right << " "
+  //      << left_d->right_d->left << " " << left_d->right_d->right << " \n";
 }
 
 vector<int> sort(vector<int> &ew, vector<int> &ow) {
@@ -208,25 +206,25 @@ vector<int> sort(vector<int> &ew, vector<int> &ow) {
 
   domino *next = &d[0];
 
-  cout << " ||| >> : " << next->left_d->left << next->left_d->right
-       << next->left << next->right << next->right_d->left
-       << next->right_d->right << next->right_d->right_d->left
-       << next->right_d->right_d->right << " \n";
+  // cout << " ||| >> : " << next->left_d->left << next->left_d->right
+  //      << next->left << next->right << next->right_d->left
+  //      << next->right_d->right << next->right_d->right_d->left
+  //      << next->right_d->right_d->right << " \n";
 
-  cout << "\n";
+  // cout << "\n";
 
   vector<int> res;
 
   int i = 0;
   do {
-    cout << i << ": \n"
-         << " left: " << next->left << "\n right: " << next->right
-         << "\n wert: " << next->w << "\n";
+    // cout << i << ": \n"
+    //      << " left: " << next->left << "\n right: " << next->right
+    //      << "\n wert: " << next->w << "\n";
 
-    cout << " >right: " << next->right_d << "\n >left: " << next->left_d
-         << " \n";
+    // cout << " >right: " << next->right_d << "\n >left: " << next->left_d
+    //      << " \n";
 
-    cout << next->left << next->right << "\n";
+    // cout << next->left << next->right << "\n";
 
     if (next->left) {
       res.push_back(2);
@@ -244,27 +242,90 @@ vector<int> sort(vector<int> &ew, vector<int> &ow) {
     next = next->right_d;
   } while (next != &d[0]);
 
-  cout << "\n";
+  // cout << "\n";
 
   return res;
 }
 
-int find_start(bitset<10001> b) {
-  vector<int> w = wiege({{0}});
-  bitset<10001> ps;
-  ps = b;
-  if (w[0] == 1) {
-    ps.flip();
+int find_start(vector<int> b) {
+  int n = b.size();
+  vector<vector<int>> pairs;
+
+  int c = 0;
+  int i = 1;
+  for (; c + i <= n; i *= 2) {
+    // cout << " i " << i << "\n";
+    vector<int> sp(i);
+    for (int j = 0; j < i; ++j) {
+      sp[j] = c;
+      c++;
+    }
+    pairs.push_back(sp);
   }
-  return 0;
+  vector<int> p = wiege(pairs);
+  sort(p.begin(), p.end());
+  vector<int> paket(n - c);
+  for (int i = c; i < n; ++i) {
+    paket[i - c] = i;
+  }
+  p.push_back(wiege({paket})[0]);
+
+  int res = -1;
+
+  for (int j = 0; j < n; ++j) {
+    int c = 1;
+    int num = 0;
+    int sum = 0;
+    bool ok = true;
+    // cout << "j: " << j << "\n";
+    for (int i = 0; i < n; ++i) {
+      int pos = (j + i) % n;
+      sum += b[pos];
+      // cout << "pos: " << pos << "\n"
+      //     << " sum: " << sum << " " << p[num] << " :p "
+      //     << " c: " << c << " j: " << j << " i: " << i << "\n";
+      if (i == c - 1) {
+        if (sum == p[num]) {
+          sum = 0;
+          num++;
+          c = num * 2 + c;
+        } else {
+          ok = false;
+          break;
+        }
+      }
+    }
+    if (!ok || sum != p[num]) {
+      continue;
+    } else {
+      res = j;
+      break;
+    }
+  }
+
+  // cout << "i: " << i << "c: " << c << "\n";
+  // cout << " p: " << p.size() << "\n";
+  // cout << " res " << res << "\n";
+  return res;
 }
 
 std::vector<int> bestimme_werte(int n) {
   bool odd = false;
   int last = 0;
+
+  if (n < 10) {
+    vector<int> res(n);
+
+    for (int i = 0; i < n; ++i) {
+      res[i] = wiege({{i}})[0];
+    }
+    return res;
+  }
+
   if (n % 2 == 1) {
     odd = true;
-    last = wiege({{n}})[0];
+    last = wiege({{n - 1}})[0];
+    n -= 1;
   }
 
   // implementiere hier deine Lösung.
@@ -286,11 +347,20 @@ std::vector<int> bestimme_werte(int n) {
   vector<int> o_pairs_res = wiege(o_pairs);
 
   auto c = sort(e_pairs_res, o_pairs_res);
-  if (odd) {
-    c.push_back(last);
+  int start = find_start(c);
+
+  vector<int> res(n);
+
+  for (int i = 0; i < n; i++) {
+    int p = (start + i) % n;
+    res[i] = c[p];
   }
 
-  return c;
+  if (odd) {
+    res.push_back(last);
+  }
+
+  return res;
 }
 
 int main() {
