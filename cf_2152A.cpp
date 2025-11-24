@@ -9,23 +9,14 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> a;
+    set<int> a;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
       int e;
       cin >> e;
-      a.push_back(e);
+      a.insert(e);
     }
 
-    sort(a.begin(), a.end(), greater<int>());
-
-    int res = 0;
-    for (int i = 0; i < n; i++) {
-      res = a[i - 1] - a[i];
-      if (a[i - 1] != a[i]) {
-        res++;
-      }
-    }
-    cout << res << "\n";
+    cout << (a.size() * 2) - 1 << "\n";
   }
 }
