@@ -2,19 +2,4 @@
 *.o
 
 # Executables (including those without extension)
-*
-!*contests
-!*cf_1064
-!*aoi
-!*munze
-!aoi
-!v*
-!*.cpp
-!*.h
-!*.hpp
-!*.c
-!CMakeLists.txt
-!*.md
-!*.txt
-!*.gitignore
-
+*.out
