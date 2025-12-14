@@ -1,6 +1,7 @@
 #include "munzen.h"
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <queue>
 #include <vector>
 
 using namespace std;
@@ -27,72 +28,112 @@ std::vector<int> bestimme_werte(int n) {
   vector<int> res;
   vector<vector<int>> ret;
 
-  int sum = 0;
-  while (res.size() < n) {
+  set<int> ones;
+  set<int> twos;
+
+  int last = -1;
+  int lz = 0;
+  int lzs = 0;
+  while (last + 1 < n) {
     vector<vector<int>> p;
     vector<int> vs;
-    int l = res.size();
+    int l = last;
 
     bool ok = true;
-    vector<bool> e(res.size(), false);
     int lv = 0;
-    int z = sum;
-    while (ok && l < n) {
-      vector<int> t;
-      t.push_back(l);
+    bool za = false;
 
-      int s = 1;
-      int tz = z;
-      int tr = 0;
-      for (int i = 0; i < res.size() && s < lv; ++i) {
-        if (!e[i]) {
-          if (tz - res[i] < lv) {
-            t.push_back(i);
-            e[i] = true;
-            tz -= res[i];
-            tr += res[i];
-            s += res[i];
-          } else if (res[i] == 1) {
-            if ((lv - s) % 2 == 1) {
-              t.push_back(i);
-              e[i] = true;
-              tz -= res[i];
-              tr += res[i];
-              s += res[i];
-            }
-          } else {
-            if (lv - s > 1) {
-              t.push_back(i);
-              e[i] = true;
-              tz -= res[i];
-              tr += res[i];
-              s += res[i];
-            }
-          }
+    queue<int> lones;
+    for (int e : ones) {
+      lones.push(e);
+    }
+    queue<int> ltwos;
+    for (int e : twos) {
+      ltwos.push(e);
+    }
+
+    int vz = lz;
+    int vzs = lzs;
+    while (ok && l + 1 < n) {
+      vector<int> t;
+
+      if (lz) {
+        if (p.size() + 1 == lzs && !za) {
+          l++;
+          za = true;
+          continue;
         }
-        if (tz < lv - s) {
+      }
+
+      t.push_back(l + 1);
+
+      int s = 2;
+
+      while (s <= lv) {
+        int e = 0;
+        if ((lv - s) - 2 >= 0 && !ltwos.empty()) {
+          e = ltwos.front();
+          ltwos.pop();
+        } else if (!lones.empty()) {
+          e = lones.front();
+          lones.pop();
+        } else if (!ltwos.empty()) {
+          e = ltwos.front();
+          ltwos.pop();
+        } else {
           ok = false;
           break;
         }
-      }
-      if (s < lv) {
-        ok = false;
+
+        t.push_back(e);
+
+        s += res[e];
+        e++;
       }
 
       if (ok) {
         p.push_back(t);
-        vs.push_back(tr);
+        vs.push_back(s - 2);
         l++;
-        lv = s + 1;
-        z = tz;
+        lv = s;
       }
     }
 
+    bool z = false;
+    if (n - l > lv) {
+      vector<int> t;
+      for (int i = 1; i <= lv; ++i) {
+        t.push_back(i + l);
+      }
+      p.push_back(t);
+      z = true;
+      lzs = lv;
+    }
+
+    last = l;
     auto r = wiege(p);
     sort(r.begin(), r.end());
-    for (int i = 0; i < r.size(); ++i) {
-      res.push_back(r[i] - vs[i]);
-      sum += r[i] - vs[i];
+    for (int i = 0; (!z && i < r.size()) || (z && i < r.size() - 1); ++i) {
+      int e = r[i] - vs[i];
+      res.push_back(e);
+      if (e == 1) {
+        ones.insert(res.size() - 1);
+      } else {
+        twos.insert(res.size() - 1);
+      }
+      if (vzs) {
+        vzs--;
+        vz -= e;
+        if (vzs == 1) {
+          res.push_back(vz);
+        }
+      }
+    }
+    if (z) {
+      lz = r[r.size() - 1];
+    } else {
+      lz = 0;
+      lzs = 0;
     }
   }
 
