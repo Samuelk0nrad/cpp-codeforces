@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tags.md",
+                "file": "itp-t1-zusammenfassung.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "tags"
+              "title": "itp-t1-zusammenfassung"
             }
           }
         ]
@@ -183,10 +183,14 @@
       "bases:Create new base": false
     }
   },
-  "active": "0781487340b45a1b",
+  "active": "b9747d681a31d852",
   "lastOpenFiles": [
-    "Untitled.canvas",
+    "Untitled.md",
+    "itp-t1-zusammenfassung.md",
+    "PXL_20260108_183101714.MP~2.jpg",
     "tags.md",
+    "2025-12-24-115228_hyprshot.png",
+    "Untitled.canvas",
     "Welcome.md"
   ]
 }
